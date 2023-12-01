@@ -1,0 +1,468 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Ergopack Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-11 12:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.5.2; wp-5.6.4\n"
+"X-Domain: ergo"
+
+#: templates/pdf/footer.php:10
+msgid " +49 (0) 9072 702 83 – 0"
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:19
+msgid " erreichen."
+msgstr ""
+
+#: templates/pdf/order/welcome.php:22
+msgid " jederzeit kontaktieren."
+msgstr ""
+
+#: templates/pdf/order/welcome.php:22
+msgid " oder per E-Mail unter"
+msgstr ""
+
+#: inc/Component/Metabox.php:29
+msgid "Allgemeines"
+msgstr ""
+
+#: templates/email/order-confirmation-pdf.html.php:4
+msgid ""
+"anbei erhaltet ihr eine gemeinsam mit dem Kunden im Termin aufgegebene "
+"Bestellung von myergopack.com."
+msgstr ""
+
+#: inc/Component/Woocommerce/Order.php:42
+msgid "Angebot"
+msgstr ""
+
+#: inc/Component/Woocommerce/Order.php:47
+#, php-format
+msgid "Angebot (%s)"
+msgid_plural "Angebot (%s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/configurator/line.php:42
+#: inc/Component/Woocommerce/Checkout.php:279
+msgid "Angebot erstellen"
+msgstr ""
+
+#: inc/Component/Woocommerce/Checkout.php:94
+#: inc/Component/Woocommerce/Customer.php:71
+#: inc/Component/Woocommerce/Customer.php:96
+#: templates/woocommerce/checkout/second-contact-person-fields.php:8
+msgid "Anrede"
+msgstr ""
+
+#: templates/pdf/order/welcome.php:18
+msgid ""
+"Auf den nächsten Seiten biete ich Ihnen, wie besprochen, das für Ihr "
+"Unternehmen empfohlene ErgoPack System an."
+msgstr ""
+
+#: templates/email/footer.html.php:80
+msgid "Augsburg HRB 13877 "
+msgstr ""
+
+#: templates/pdf/footer.php:16
+msgid "Bankverbindung"
+msgstr ""
+
+#: templates/pdf/order/welcome.php:16
+msgid ""
+"Basierend auf Ihren Informationen und Anforderungen konnte ich mir ein "
+"klares Bild davon machen, welches ErgoPack System am hilfreichsten für Ihre "
+"Anwendung ist."
+msgstr ""
+
+#: templates/pdf/order/welcome.php:22
+msgid "Bei eventuellen Fragen können Sie mich sehr gerne telefonisch unter"
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:19
+msgid "Bei eventuellen Fragen können Sie mich sehr gerne telefonisch unter "
+msgstr ""
+
+#: templates/pdf/order/discount.php:3
+msgid ""
+"Beim Kauf ab drei Systemen gewähren wir einen Rabatt von 2,15 % auf den "
+"Systempreis (ausgenommen Lieferung)."
+msgstr ""
+
+#: templates/pdf/order/discount.php:2
+msgid ""
+"Beim Kauf von zwei Systemen gewähren wir einen Rabatt von 1,5 % auf den "
+"Systempreis (ausgenommen Lieferung)."
+msgstr ""
+
+#: inc/Component/Configurator.php:201
+msgid "Bestellung anzeigen"
+msgstr ""
+
+#: inc/Component/Woocommerce/Checkout.php:282
+msgid "Bestellung aufgeben"
+msgstr ""
+
+#: templates/pdf/footer.php:18
+msgid "BIC ESSEDEFF"
+msgstr ""
+
+#: templates/email/order-confirmation-pdf.html.php:7
+msgid ""
+"Bitte erfasst die Bestellung, gemäß dem vereinbarten Prozess, im ERP-System "
+"und sendet dem Kunden die einhergehende Auftragsbestätigung zu."
+msgstr ""
+
+#: inc/Component/Woocommerce/Checkout.php:131
+msgid "Bitte Vorgangsnummer eingeben."
+msgstr ""
+
+#: templates/configurator/line.php:33
+msgid "Content is loading..."
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:11
+msgid ""
+"Dann profitieren Sie von unseren ausgezeichneten Systemen und den drei "
+"Hauptvorteilen:"
+msgstr ""
+
+#: templates/email/footer.html.php:81
+msgid ""
+"Der\n"
+"                    Inhalt dieser E-Mail ist vertraulich und enthält "
+"möglicherweise\n"
+"                    Informationen, die ausschließlich für ausgewählte "
+"Empfänger, nicht für die\n"
+"                    Öffentlichkeit bestimmt sind. Falls diese E-Mail nicht "
+"an den Empfänger\n"
+"                    gerichtet ist oder fehlgeleitet wurde, ist der Empfänger "
+"verpflichtet,\n"
+"                    alle Kopien der E-Mail umgehend zu löschen und dies dem "
+"Absender\n"
+"                    anzuzeigen. Die unerlaubte Verwendung, Vervielfältigung "
+"oder Verbreitung\n"
+"                    dieser E-Mail ist strengstens verboten."
+msgstr ""
+
+#: templates/configurator/line.php:1
+msgid "Der ErgoPack Konfigurator"
+msgstr ""
+
+#: inc/Component/Woocommerce/Customer.php:118
+#: templates/woocommerce/checkout/second-contact-person-fields.php:48
+msgid "E-Mail-Adresse"
+msgstr ""
+
+#: inc/Component/Woocommerce/Checkout.php:135
+msgid "E-Mail-Adresse ist nicht korrekt."
+msgstr ""
+
+#. Author of the plugin
+msgid "Effecticore"
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:16
+msgid "Effizient"
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:15
+msgid "Einfach"
+msgstr ""
+
+#: templates/email/footer.html.php:79
+msgid "Eintragung: Amtsgericht "
+msgstr ""
+
+#: templates/pdf/footer.php:24
+msgid "Eintragung: Amtsgericht Augsburg"
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:14
+msgid "Ergonomisch"
+msgstr ""
+
+#: templates/pdf/footer.php:7
+msgid "ErgoPack Deutschland GmbH"
+msgstr ""
+
+#: templates/pdf/order/signature.php:1
+msgid ""
+"ErgoPack Deutschland GmbH • Hanns-Martin-Schleyer-Str. 21 • D-89415 Lauingen"
+msgstr ""
+
+#. Name of the plugin
+msgid "Ergopack Plugin"
+msgstr ""
+
+#: inc/Component/Pdf/Document/Order.php:426
+msgid "ErgoPack System:"
+msgstr ""
+
+#: inc/Helpers.php:58
+msgid "ErgoPack-Ihre-persoenliche-Systemkonfiguration_"
+msgstr ""
+
+#: templates/email/order-confirmation-pdf.html.php:13
+msgid "Euer Vertriebsteam"
+msgstr ""
+
+#: templates/woocommerce/checkout/customer-select.php:5
+msgid "Firma auswählen"
+msgstr ""
+
+#: templates/pdf/order/discount.php:1
+msgid "Folgende Rabattstaffel können wir Ihnen anbieten:"
+msgstr ""
+
+#: inc/Component/Pdf/Document/Order.php:532
+msgid "Gesamtpreis"
+msgstr ""
+
+#: templates/pdf/footer.php:26
+msgid "Geschäftsführer: Michael Holzgethan"
+msgstr ""
+
+#: templates/email/footer.html.php:80
+msgid "Geschäftsführer: Michael Holzgethan "
+msgstr ""
+
+#: templates/pdf/footer.php:8
+msgid "Hanns-Martin-Schleyer-Str. 21"
+msgstr ""
+
+#: templates/email/footer.html.php:28
+msgid "Hanns-Martin-Schleyer-Str. 21 | D-89415"
+msgstr ""
+
+#: templates/pdf/order/welcome.php:27
+msgid "Herzliche Grüße"
+msgstr ""
+
+#: templates/pdf/footer.php:25
+msgid "HRB 13877"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://effecticore.de"
+msgstr ""
+
+#: templates/pdf/order/welcome.php:32
+msgid "i. A."
+msgstr ""
+
+#: templates/pdf/footer.php:19
+msgid "IBAN DE07 5122 0200 0071 2650 01"
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:22
+msgid "Ich freue mich, von Ihnen zu hören."
+msgstr ""
+
+#: templates/pdf/order/welcome.php:4
+msgid "Ihr persönliches Angebot für Ihr ErgoPack Umreifungssystem"
+msgstr ""
+
+#: ergopack.php:58 inc/Component/Email/Message/OrderConfirmation.php:84
+#: inc/Component/Email/Message/OrderConfirmation.php:85
+#, php-format
+msgid "Ihr persönliches Angebot für Ihr ErgoPack Umreifungssystem - %s"
+msgstr ""
+
+#: templates/pdf/footer.php:11
+msgid "info@ergopack.de"
+msgstr ""
+
+#: templates/email/footer.html.php:29
+msgid "Lauingen/Donau"
+msgstr ""
+
+#: templates/email/order-confirmation-pdf.html.php:1
+msgid "Liebe Kollegen im Vertriebsinnendienst,"
+msgstr ""
+
+#: templates/pdf/order/after_table.php:2
+msgid "Lieferzeiten: 4-6 Wochen, für Xpert Systeme 10-12 Wochen"
+msgstr ""
+
+#: templates/email/footer.html.php:6
+msgid "Mit freundlichen Grüßen | Best regards"
+msgstr ""
+
+#: inc/Component/Woocommerce/Order.php:174
+msgid "Nach Verkaufsperson filtern"
+msgstr ""
+
+#: inc/Component/Woocommerce/Customer.php:112
+#: templates/woocommerce/checkout/second-contact-person-fields.php:37
+msgid "Nachname"
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:19
+msgid "oder per E-Mail unter "
+msgstr ""
+
+#: inc/Component/Woocommerce/Customer.php:57
+msgid "Personalisierungsdaten des Kunden"
+msgstr ""
+
+#. Description of the plugin
+msgid "Plugin for Ergopack"
+msgstr ""
+
+#: inc/Component/Pdf/Document/Order.php:287
+msgid "Preis pro Stück ab Werk"
+msgstr ""
+
+#: inc/Component/Configurator.php:200
+msgid "Produkt erfolgreich bestellt! Auftragsnummer:"
+msgstr ""
+
+#: templates/pdf/footer.php:17
+msgid "SEB Frankfurt"
+msgstr ""
+
+#: inc/Component/Woocommerce/Checkout.php:372
+#: inc/Component/Woocommerce/Customer.php:35
+#: inc/Component/Email/Message/AbstractMessage.php:128
+#: inc/Component/Pdf/Document/Order.php:208
+#: inc/Component/Pdf/Document/Order.php:220
+msgid "Sehr geehrte Frau"
+msgstr ""
+
+#: inc/Component/Email/Message/AbstractMessage.php:104
+msgid "Sehr geehrter"
+msgstr ""
+
+#: inc/Component/Woocommerce/Checkout.php:370
+#: inc/Component/Woocommerce/Customer.php:34
+#: inc/Component/Email/Message/AbstractMessage.php:126
+#: inc/Component/Pdf/Document/Order.php:206
+#: inc/Component/Pdf/Document/Order.php:218
+msgid "Sehr geehrter Herr"
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:10
+msgid ""
+"Sind Sie bereit, den Grundstein für ein EFFIZIENTES und ERGONOMISCHES "
+"Arbeitsumfeld zu legen? "
+msgstr ""
+
+#: inc/Component/Pdf/Document/Order.php:446
+msgid "Systempreis"
+msgstr ""
+
+#: templates/email/footer.html.php:89
+msgid ""
+"This e-mail may contain\n"
+"                    confidential and/or privileged information. If you are "
+"not the intended\n"
+"                    recipient (or have received this e-mail by mistake) "
+"please notify us and\n"
+"                    destroy this e-mail. Any unauthorized copying, "
+"disclosure or distribution\n"
+"                    of this e-mail is strictly forbidden."
+msgstr ""
+
+#: inc/Component/Woocommerce/Checkout.php:108
+#: inc/Component/Woocommerce/Customer.php:61
+#: inc/Component/Woocommerce/Customer.php:86
+#: templates/woocommerce/checkout/second-contact-person-fields.php:18
+msgid "Titel"
+msgstr ""
+
+#: inc/Component/Pdf/Document/Order.php:480
+msgid "Umreifungsbänder:"
+msgstr ""
+
+#: inc/Component/Pdf/Document/Order.php:419
+msgid "Unser Angebot vom"
+msgstr ""
+
+#: templates/pdf/order/after_table.php:2
+msgid "Unsere Zahlungsbedingungen: 10 Tage netto ohne Abzug"
+msgstr ""
+
+#: templates/pdf/footer.php:23
+msgid "USt.-IdNr.: DE163176280"
+msgstr ""
+
+#: templates/email/footer.html.php:79
+msgid "USt.-IdNr.: DE163176280 "
+msgstr ""
+
+#: inc/Component/Woocommerce.php:26
+msgid "Verkäufer"
+msgstr ""
+
+#: inc/Component/Pdf/Document/Order.php:521
+msgid "Versand:"
+msgstr ""
+
+#: templates/pdf/order/welcome.php:16
+msgid ""
+"vielen Dank für Ihr Interesse an unseren ErgoPack Systemen sowie für die "
+"wertvollen Einblicke in Ihr Unternehmen."
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:7
+msgid ""
+"vielen Dank für Ihre Zeit und Ihr Interesse an unseren ErgoPack Systemen."
+msgstr ""
+
+#: templates/email/order-confirmation-pdf.html.php:10
+msgid "Vielen Dank und Grüße"
+msgstr ""
+
+#: templates/woocommerce/checkout/customer-select.php:17
+msgid "Vorgangsnummer *"
+msgstr ""
+
+#: inc/Component/Woocommerce/Checkout.php:356
+msgid "Vorgangsnummer:"
+msgstr ""
+
+#: inc/Component/Woocommerce/Customer.php:106
+#: templates/woocommerce/checkout/second-contact-person-fields.php:28
+msgid "Vorname"
+msgstr ""
+
+#: templates/email/footer.html.php:24
+msgid "Website"
+msgstr ""
+
+#: templates/email/quotation-confirmation-pdf.html.php:8
+msgid "Wie vereinbart finden Sie anbei das gemeinsam erarbeitete Angebot."
+msgstr ""
+
+#: templates/pdf/footer.php:12
+msgid "www.ergopack.de"
+msgstr ""
+
+#: inc/Component/Pdf/Document/Order.php:462
+msgid "Zubehör:"
+msgstr ""
+
+#: inc/Component/Woocommerce/Checkout.php:385
+#: templates/woocommerce/checkout/second-contact-person-fields.php:1
+msgid "Zusätzlicher Ansprechpartner"
+msgstr ""
+
+#: inc/Component/Woocommerce/Customer.php:82
+msgid "Zusätzlicher Ansprechpartner "
+msgstr ""
+
+#: inc/Component/Pdf/Document/Order.php:455
+msgid "Zwischensumme"
+msgstr ""

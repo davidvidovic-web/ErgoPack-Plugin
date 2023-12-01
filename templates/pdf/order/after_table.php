@@ -1,0 +1,1 @@
+<p><?php echo esc_html__('Die angegebenen Preise verstehen sich netto, ab Werk zzgl. gesetzlicher MwSt. und sind bis zum 31. Dezember 2023 gültig.', 'ergo') ?></p><p><?php echo esc_html__('Lieferzeiten: 4-6 Wochen') ?><br><?php echo esc_html__('Unsere Zahlungsbedingungen: 10 Tage netto ohne Abzug', 'ergo'); ?></p>

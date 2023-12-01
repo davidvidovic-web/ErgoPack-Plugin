@@ -1,0 +1,32 @@
+{
+  "require" : {
+    "tecnickcom/tcpdf": "dev-master",
+    "hubspot/api-client": "^9.0"
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "tecnickcom/tcpdf",
+        "version": "dev-master",
+        "source": {
+          "url": "https://github.com/tecnickcom/tcpdf",
+          "type": "git",
+          "reference": "origin/main"
+        }
+      }
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Ergopack\\": "inc/"
+    },
+    "files": [
+      "inc/Helpers.php",
+      "vendor/tecnickcom/tcpdf/tcpdf.php"
+    ]
+  },
+  "config": {
+    "platform-check": false
+  }
+}
