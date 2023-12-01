@@ -1,4 +1,5 @@
 <?php
+
 namespace Ergopack\Component\Pdf\Document;
 
 /**
@@ -32,7 +33,7 @@ class Order extends AbstractDocument
      *
      * @param \WC_Order $order
      */
-    public function set_order( \WC_Order $order )
+    public function set_order(\WC_Order $order)
     {
         $this->order = $order;
     }
@@ -181,6 +182,7 @@ EOD;
     public function display_welcome()
     {
         $order = $this->order;
+        $order_id = $order->id;
         $html  = $this->doc_header();
 
         // Customer info
@@ -201,23 +203,27 @@ EOD;
         $email             = $order->get_billing_email();
 
         $title             = get_the_author_meta('epp_customer_title', $order->get_user_id());
-        $salutation        = get_the_author_meta('epp_customer_salutation', $order->get_user_id());
-        if( $salutation == 'Sehr geehrter Herr' ) {
-            $new_salutation = __('Sehr geehrter Herr','ergo');
-        } else if ( $salutation == 'Sehr geehrte Frau' ) {
-            $new_salutation = __('Sehr geehrte Frau','ergo');
+        $salutation        = get_post_meta($order_id, '_epp_customer_salutation', true);
+
+        $new_salutation = '';
+        if ($salutation == 'Sehr geehrter Herr') {
+            $new_salutation = __('Sehr geehrter Herr', 'ergo');
+        } else if ($salutation == 'Sehr geehrte Frau') {
+            $new_salutation = __('Sehr geehrte Frau', 'ergo');
         }
 
         $new_salutation;
 
+
         // SECOND CONTACT PERSON
         $customer_id                        = $order->get_customer_id();
         $customer_second_contact_title      = get_the_author_meta('_epp_second_contact_title', $customer_id);
-        $customer_second_contact_salutation = get_the_author_meta('_epp_second_contact_salutation', $customer_id);
-        if( $customer_second_contact_salutation == 'Sehr geehrter Herr' ) {
-            $new_second_salutation = __('Sehr geehrter Herr','ergo');
-        } else if ( $customer_second_contact_salutation == 'Sehr geehrte Frau' ) {
-            $new_second_salutation = __('Sehr geehrte Frau','ergo');
+        $customer_second_contact_salutation = get_post_meta($order_id, '_epp_second_contact_salutation', true);
+        $new_second_salutation = '';
+        if ($customer_second_contact_salutation == 'Sehr geehrter Herr') {
+            $new_second_salutation = __('Sehr geehrter Herr', 'ergo');
+        } else if ($customer_second_contact_salutation == 'Sehr geehrte Frau') {
+            $new_second_salutation = __('Sehr geehrte Frau', 'ergo');
         }
         $new_second_salutation;
         $customer_second_contact_firstname  = get_the_author_meta('_epp_second_contact_firstname', $customer_id);
@@ -246,7 +252,7 @@ EOD;
 
         $seller_firstname = $seller_lastname = $seller_title = $seller_email = $seller_phone = '';
 
-        if( $current_user ) {
+        if ($current_user) {
             $seller_firstname = $current_user->first_name;
             $seller_lastname = $current_user->last_name;
             $seller_fullname = !empty($seller_firstname) && !empty($seller_lastname) ? sprintf('%s %s<br>', $seller_firstname, $seller_lastname) : $current_user->nickname;
@@ -256,6 +262,7 @@ EOD;
         }
 
         ob_start();
+
         require ERGO_TEMPLATE_DIR . '/pdf/order/signature.php';
         require ERGO_TEMPLATE_DIR . '/pdf/order/welcome.php';
         $html .= ob_get_clean();
@@ -263,28 +270,28 @@ EOD;
         $this->pdf->writeHTML($html, true, false, true, false, '');
     }
 
-    public function display_order_item( \WC_Order_Item $item )
+    public function display_order_item(\WC_Order_Item $item)
     {
         $product = $item->get_product();
 
         $item_title = $item->get_name();
         $item_quantity = $item->get_quantity();
-        $item_price = wc_price($this->order->get_item_subtotal( $item, false, true ), [ 'currency' => $this->order->get_currency() ] );
+        $item_price = wc_price($this->order->get_item_subtotal($item, false, true), ['currency' => $this->order->get_currency()]);
         $item_total = wc_price($item->get_subtotal(), ['currency' => $this->order->get_currency()]);
         $item_description = $product->get_description();
         $item_description = str_replace('<ul>', '<ul style="list-style-type: square;">', $item_description);
 
         $image = '';
-        $image_data = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium' );
+        $image_data = wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'medium');
 
-        if( $image_data ) {
+        if ($image_data) {
             $image_size = @getimagesize($image_data[0]);
-            if( isset($image_size[0]) ) {
+            if (isset($image_size[0])) {
                 $image_url = esc_url($image_data[0]);
                 $image = sprintf('<img src="%s" border="0"/>', $image_url);
             }
         }
-        $price_item = __('Preis pro Stück ab Werk','ergo');
+        $price_item = __('Preis pro Stück ab Werk', 'ergo');
         return <<<EOD
 <tr>
     <td colspan="5" style="font-size: 0px; height: 5px"></td>
@@ -325,7 +332,7 @@ EOD;
     public function display_order_item_summary($total_price, $label = 'Zwischensumme')
     {
 
-            $html = <<<EOD
+        $html = <<<EOD
 <tr>
     <td class="" width="5%"></td>
     <td class="td-summary" width="80%" colspan="3">{$label}:</td>
@@ -342,7 +349,7 @@ EOD;
     {
         $html = $withtable ? '<table cellspacing="0" cellpadding="0" border="0">' : '';
 
-        if( $topmargin ) {
+        if ($topmargin) {
             $html = <<<EOD
 <tr>
     <td colspan="5"><p></p><p></p></td>
@@ -391,24 +398,28 @@ EOD;
             'montage'  => []
         ];
 
-        if( $order_items ) {
+        if ($order_items) {
             foreach ($order_items as $item) {
                 $product_id = $item->get_product_id();
                 //$composited_item = wc_cp_is_composited_order_item( $item, $this->order );
-                $composite_container = wc_cp_is_composite_container_order_item( $item );
-                $child_items  = wc_cp_get_composited_order_items( $item, $this->order, false, true );
+                $composite_container = wc_cp_is_composite_container_order_item($item);
+                $child_items  = wc_cp_get_composited_order_items($item, $this->order, false, true);
 
-                if (has_term('zubehoer', 'product_cat', $product_id)
+                if (
+                    has_term('zubehoer', 'product_cat', $product_id)
                     || has_term('accessories-en', 'product_cat', $product_id)
-                    || has_term('accessories-en-us', 'product_cat', $product_id)) {
+                    || has_term('accessories-en-us', 'product_cat', $product_id)
+                ) {
                     $grouped['zubehoer'][] = $item;
-                } elseif (has_term('umreifungsbaender', 'product_cat', $product_id)
-                    || has_term('strapping-bands', 'product_cat', $product_id)) {
+                } elseif (
+                    has_term('umreifungsbaender', 'product_cat', $product_id)
+                    || has_term('strapping-bands', 'product_cat', $product_id)
+                ) {
                     $grouped['umreifungsbaender'][] = $item;
                 } elseif (has_term('montage', 'product_cat', $product_id)) {
                     $grouped['montage'][] = $item;
                 } else {
-                    if( $composite_container ) {
+                    if ($composite_container) {
                         $grouped['system'][] = [
                             'parent' => $item,
                             'children' => $child_items
@@ -419,26 +430,26 @@ EOD;
         }
 
         $html = $this->doc_header();
-        $html .= "<h4 style=\"text-decoration: underline\">".__('Unser Angebot vom','ergo')." {$order_date}</h4><p></p>";
+        $html .= "<h4 style=\"text-decoration: underline\">" . __('Unser Angebot vom', 'ergo') . " {$order_date}</h4><p></p>";
 
         // Total system
         $total_system = $total_section = 0;
 
         // System
-        if( $grouped['system'] ) {
-            $html .= '<h3>'.__('ErgoPack System:','ergo').'</h3>';
+        if ($grouped['system']) {
+            $html .= '<h3>' . __('ErgoPack System:', 'ergo') . '</h3>';
             $html .= '<table cellspacing="0" cellpadding="0" border="0">';
 
             foreach ($grouped['system'] as $system) {
                 $total_per_system = 0;
 
-                if(isset($system['parent'])) {
+                if (isset($system['parent'])) {
                     $total_system += $system['parent']->get_subtotal();
                     $total_per_system += $system['parent']->get_subtotal();
                     $html .= $this->display_order_item($system['parent']);
                 }
-                if(isset($system['children']) && is_array($system['children'])) {
-                    foreach($system['children'] as $child) {
+                if (isset($system['children']) && is_array($system['children'])) {
+                    foreach ($system['children'] as $child) {
                         $total_system += $child->get_subtotal();
                         $total_per_system += $child->get_subtotal();
                         $html .= $this->display_order_item($child);
@@ -446,7 +457,7 @@ EOD;
                 }
 
                 $total_per_system_price = wc_price($total_per_system, ['currency' => $this->order->get_currency()]);
-                $system_label = __('Systempreis','ergo');
+                $system_label = __('Systempreis', 'ergo');
                 $html .= $this->display_order_item_summary($total_per_system_price, $system_label);
             }
 
@@ -455,14 +466,14 @@ EOD;
 
         $total_system_price = wc_price($total_system, ['currency' => $this->order->get_currency()]);
 
-        $system_preis = __('Zwischensumme','ergo');
+        $system_preis = __('Zwischensumme', 'ergo');
         // Systempreis
         $html .= $this->display_section_total_price($total_system_price, $system_preis, false);
 
         // Zubehör
-        if( $grouped['zubehoer'] ) {
+        if ($grouped['zubehoer']) {
             $html .= '<hr style="width: 100px">';
-            $html .= '<h3>'.__('Zubehör:','ergo').'</h3>';
+            $html .= '<h3>' . __('Zubehör:', 'ergo') . '</h3>';
             $html .= '<table cellspacing="0" cellpadding="0" border="0">';
 
             foreach ($grouped['zubehoer'] as $section) {
@@ -478,9 +489,9 @@ EOD;
         }
 
         // Umreifungsbänder
-        if( $grouped['umreifungsbaender'] ) {
+        if ($grouped['umreifungsbaender']) {
             $html .= '<hr style="width: 100px">';
-            $html .= '<h3>'.__('Umreifungsbänder:','ergo').'</h3>';
+            $html .= '<h3>' . __('Umreifungsbänder:', 'ergo') . '</h3>';
             $html .= '<table cellspacing="0" cellpadding="0" border="0">';
 
             foreach ($grouped['umreifungsbaender'] as $section) {
@@ -497,7 +508,7 @@ EOD;
 
         $html .= '<table cellspacing="0" cellpadding="0" border="0">';
 
-        if( $grouped['montage'] ) {
+        if ($grouped['montage']) {
             foreach ($grouped['montage'] as $montage) {
                 $html .= $this->display_order_item($montage);
             }
@@ -505,8 +516,8 @@ EOD;
 
         // Coupons
         $coupons = $this->order->get_coupons();
-        if( $coupons ) {
-            foreach( $coupons as $coupon ) {
+        if ($coupons) {
+            foreach ($coupons as $coupon) {
                 $coupon_code = $coupon->get_code();
                 $coupon_amount = wc_price($coupon->get_discount(), ['currency' => $this->order->get_currency()]);
                 $html .= $this->display_summary_price("-{$coupon_amount}", "Aktionscode / Staffelrabatt auf Systeme: {$coupon_code}");
@@ -521,7 +532,7 @@ EOD;
 
         // Shipping
         $shipping_total = wc_price($this->order->get_shipping_total(), ['currency' => $this->order->get_currency()]);
-        $versand_label = __('Versand:','ergo');
+        $versand_label = __('Versand:', 'ergo');
         $html .= $this->display_summary_price($shipping_total, $versand_label);
 
         $html .= <<<EOD
@@ -532,7 +543,7 @@ EOD;
 
         // Total
         $total_price = wc_price($this->order->get_total(), ['currency' => $this->order->get_currency()]);
-        $total_label = __('Gesamtpreis','ergo');
+        $total_label = __('Gesamtpreis', 'ergo');
         $html .= $this->display_summary_price($total_price, $total_label);
 
         $html .= '</table><p></p>';
@@ -552,7 +563,7 @@ EOD;
      * @param $dest
      * @return mixed|string
      */
-    public function output( $dest = 'F' )
+    public function output($dest = 'F')
     {
         $this->pdf->setFontSubsetting(false);
 
@@ -566,9 +577,9 @@ EOD;
 
         $base = ergo_pdf_folder($this->get_filename());
 
-        if( strpos($dest, 'F') !== false ) {
+        if (strpos($dest, 'F') !== false) {
             $path = $base['dir'] . '/' . $this->get_filename();
-        } else if( $dest === 'E' ) {
+        } else if ($dest === 'E') {
             return $this->pdf->Output($this->get_filename(), $dest);
         } else {
             $path = $this->get_filename();

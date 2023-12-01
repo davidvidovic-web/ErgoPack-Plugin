@@ -62,7 +62,7 @@ class Plugin
      */
     public function run_components()
     {
-        // Importer
+        //Importer
         $importer = new Importer();
         $importer->run();
 

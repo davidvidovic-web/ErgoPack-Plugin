@@ -1,4 +1,5 @@
 <?php
+
 namespace Ergopack\Component\Woocommerce;
 
 /**
@@ -7,6 +8,8 @@ namespace Ergopack\Component\Woocommerce;
  * @author Effecticore
  * @since 0.1
  */
+
+
 
 class Checkout
 {
@@ -25,13 +28,13 @@ class Checkout
         add_action('woocommerce_checkout_update_order_meta', [&$this, 'checkout_update_order_meta']);
         add_action('woocommerce_checkout_order_processed', [&$this, 'order_processed'], 10, 3);
         add_action('woocommerce_review_order_before_submit', [&$this, 'add_quotation_button']);
-        add_action('woocommerce_thankyou', [&$this, 'change_order_status'], 10, 1 );
-        add_action('woocommerce_new_order', [&$this, 'save_seller_id'] );
+        add_action('woocommerce_thankyou', [&$this, 'change_order_status'], 10, 1);
+        add_action('woocommerce_new_order', [&$this, 'save_seller_id']);
 
-        add_action('show_user_profile', [&$this, 'extra_user_profile_fields'], 1 );
-        add_action('edit_user_profile', [&$this, 'extra_user_profile_fields'], 1 );
-        add_action('personal_options_update', [&$this, 'save_extra_user_profile_fields'] );
-        add_action('edit_user_profile_update', [&$this, 'save_extra_user_profile_fields'] );
+        // add_action('show_user_profile', [&$this, 'extra_user_profile_fields'], 1);
+        // add_action('edit_user_profile', [&$this, 'extra_user_profile_fields'], 1);
+        // add_action('personal_options_update', [&$this, 'save_extra_user_profile_fields']);
+        // add_action('edit_user_profile_update', [&$this, 'save_extra_user_profile_fields']);
 
         // Actions:Admin
         add_action('woocommerce_admin_order_data_after_billing_address', [&$this, 'display_admin_vorgangsnummer']);
@@ -39,8 +42,9 @@ class Checkout
 
         // Filters
         add_filter('woocommerce_ship_to_different_address_checked', '__return_true');
-        add_filter('woocommerce_checkout_get_value','__return_empty_string',10);
+        add_filter('woocommerce_checkout_get_value', '__return_empty_string', 10);
         add_filter('woocommerce_checkout_customer_id', [&$this, 'get_order_customer_id']);
+
 
         // AJAX
         add_action('wp_ajax_epp_load_customer_data', [&$this, 'load_customer_data']);
@@ -52,9 +56,9 @@ class Checkout
      * @param $cid
      * @return int
      */
-    public function get_order_customer_id( $cid )
+    public function get_order_customer_id($cid)
     {
-        if( isset( $_POST['epp_customer_id'] ) ) {
+        if (isset($_POST['epp_customer_id'])) {
             $cid = absint($_POST['epp_customer_id']);
         }
 
@@ -87,27 +91,28 @@ class Checkout
      */
     public function add_customer_salutation()
     {
-        woocommerce_form_field( 'epp_customer_salutation', array(
-            'type'	=> 'select',
+        woocommerce_form_field('epp_customer_salutation', array(
+            'type'    => 'select',
             'required' => true,
-            'class'	=> array('form-row-first form-row-wide'),
-            'label'	=> __('Anrede','ergo'),
+            'class'    => array('form-row-first form-row-wide'),
+            'label'    => __('Anrede', 'ergo'),
             'options' => Customer::get_salutation_options()
-        ) );
+        ));
     }
+
 
     /**
      * Render customer title template
      */
     public function add_customer_title()
     {
-        woocommerce_form_field( 'epp_customer_title', array(
-            'type'	=> 'select',
+        woocommerce_form_field('epp_customer_title', array(
+            'type'    => 'select',
             'required' => true,
-            'class'	=> array('form-row-last form-row-wide'),
-            'label'	=> __('Titel','ergo'),
+            'class'    => array('form-row-last form-row-wide'),
+            'label'    => __('Titel', 'ergo'),
             'options' => Customer::get_title_options()
-        ) );
+        ));
     }
 
     /**
@@ -127,43 +132,47 @@ class Checkout
     public function validation()
     {
         // Check Vorgangsnummer value
-        if ( isset($_POST['epp_vorgangsnummer']) && empty($_POST['epp_vorgangsnummer']) )
-            wc_add_notice( __( 'Bitte Vorgangsnummer eingeben.','ergo' ), 'error' );
+        if (isset($_POST['epp_vorgangsnummer']) && empty($_POST['epp_vorgangsnummer']))
+            wc_add_notice(__('Bitte Vorgangsnummer eingeben.', 'ergo'), 'error');
 
         // Check contact person's email
-        if( isset( $_POST['epp_second_contact_email'] ) && !empty($_POST['epp_second_contact_email']) && strpos($_POST['epp_second_contact_email'],'@') === false )
-            wc_add_notice( __( 'E-Mail-Adresse ist nicht korrekt.', 'ergo' ), 'error' );
+        if (isset($_POST['epp_second_contact_email']) && !empty($_POST['epp_second_contact_email']) && strpos($_POST['epp_second_contact_email'], '@') === false)
+            wc_add_notice(__('E-Mail-Adresse ist nicht korrekt.', 'ergo'), 'error');
     }
 
     /**
      * @param $order_id
      */
-    public function checkout_update_order_meta( $order_id ){
-        if( isset( $_POST['epp_customer_id'] ) && intval($_POST['epp_customer_id']) > 0 ) {
+    public function checkout_update_order_meta($order_id)
+    {
+        global $wpdb;
+        if (isset($_POST['epp_customer_id']) && intval($_POST['epp_customer_id']) > 0) {
             if (!empty($_POST['epp_customer_title'])) {
                 update_user_meta($_POST['epp_customer_id'], 'epp_customer_title', sanitize_text_field($_POST['epp_customer_title']));
             }
-            if (!empty($_POST['epp_customer_salutation'])) {
-                update_user_meta($_POST['epp_customer_id'], 'epp_customer_salutation', sanitize_text_field($_POST['epp_customer_salutation']));
-            }
-            if( isset( $_POST['epp_second_contact_salutation'] ) && !empty($_POST['epp_second_contact_salutation']) && isset( $_POST['epp_second_contact_lastname'] ) && !empty($_POST['epp_second_contact_lastname']) ) {
-                update_user_meta($_POST['epp_customer_id'], '_epp_second_contact_salutation', sanitize_text_field($_POST['epp_second_contact_salutation']));
-            }
-            if( isset( $_POST['epp_second_contact_title'] ) && !empty($_POST['epp_second_contact_title']) ) {
+
+
+            if (isset($_POST['epp_second_contact_title']) && !empty($_POST['epp_second_contact_title'])) {
                 update_user_meta($_POST['epp_customer_id'], '_epp_second_contact_title', sanitize_text_field($_POST['epp_second_contact_title']));
             }
-            if( isset( $_POST['epp_second_contact_firstname'] ) && !empty($_POST['epp_second_contact_firstname']) ) {
+            if (isset($_POST['epp_second_contact_firstname']) && !empty($_POST['epp_second_contact_firstname'])) {
                 update_user_meta($_POST['epp_customer_id'], '_epp_second_contact_firstname', sanitize_text_field($_POST['epp_second_contact_firstname']));
             }
-            if( isset( $_POST['epp_second_contact_lastname'] ) && !empty($_POST['epp_second_contact_lastname']) ) {
+            if (isset($_POST['epp_second_contact_lastname']) && !empty($_POST['epp_second_contact_lastname'])) {
                 update_user_meta($_POST['epp_customer_id'], '_epp_second_contact_lastname', sanitize_text_field($_POST['epp_second_contact_lastname']));
             }
-            if( isset( $_POST['epp_second_contact_email'] ) && !empty($_POST['epp_second_contact_email']) ) {
+            if (isset($_POST['epp_second_contact_email']) && !empty($_POST['epp_second_contact_email'])) {
                 update_user_meta($_POST['epp_customer_id'], '_epp_second_contact_email', sanitize_email($_POST['epp_second_contact_email']));
             }
         }
-        if( isset( $_POST['epp_vorgangsnummer'] ) && absint($_POST['epp_vorgangsnummer']) > 0 ) {
+        if (isset($_POST['epp_vorgangsnummer']) && absint($_POST['epp_vorgangsnummer']) > 0) {
             update_post_meta($order_id, '_epp_vorgangsnummer', absint($_POST['epp_vorgangsnummer']));
+        }
+        if (!empty($_POST['epp_customer_salutation'])) {
+            update_post_meta($order_id, '_epp_customer_salutation', sanitize_text_field($_POST['epp_customer_salutation']));
+        }
+        if (isset($_POST['epp_second_contact_salutation']) && !empty($_POST['epp_second_contact_salutation']) && isset($_POST['epp_second_contact_lastname']) && !empty($_POST['epp_second_contact_lastname'])) {
+            update_post_meta($order_id, '_epp_second_contact_salutation', sanitize_text_field($_POST['epp_second_contact_salutation']));
         }
     }
 
@@ -188,9 +197,9 @@ class Checkout
         ");
 
         $arr = [];
-        foreach( $results as $customer ) {
+        foreach ($results as $customer) {
             $company = !empty($customer->company) ? ($customer->company . ' - ') : '';
-            $name = empty($customer->first_name) ? $customer->nickname : ( $customer->first_name . ' ' . $customer->last_name . ' ('.$customer->nickname.')' );
+            $name = empty($customer->first_name) ? $customer->nickname : ($customer->first_name . ' ' . $customer->last_name . ' (' . $customer->nickname . ')');
             $arr[$customer->ID] = $company . $name;
         }
 
@@ -207,7 +216,7 @@ class Checkout
 
         $json = [];
 
-        if( wp_verify_nonce( $_POST['nonce'], 'ajax-nonce') ) {
+        if (wp_verify_nonce($_POST['nonce'], 'ajax-nonce')) {
 
             $customer = $wpdb->get_row($wpdb->prepare("
                 SELECT 
@@ -262,7 +271,7 @@ class Checkout
 
             $json['success'] = 'no';
 
-            if( $customer ) {
+            if ($customer) {
                 $json['success'] = 'ok';
                 $json['data'] = $customer;
             }
@@ -276,11 +285,11 @@ class Checkout
      */
     public function add_quotation_button()
     {
-        $order_button_text = __('Angebot erstellen','ergo');
-        echo '<button type="button" class="button alt" name="woocommerce_checkout_place_order_quotation" id="place_order_quotation" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">' . esc_html( $order_button_text ) . '</button> ';
+        $order_button_text = __('Angebot erstellen', 'ergo');
+        echo '<button type="button" class="button alt" name="woocommerce_checkout_place_order_quotation" id="place_order_quotation" value="' . esc_attr($order_button_text) . '" data-value="' . esc_attr($order_button_text) . '">' . esc_html($order_button_text) . '</button> ';
 
-        $order_button_text = __('Bestellung aufgeben','ergo');
-        echo '<button type="button" class="button alt" name="woocommerce_checkout_place_order_trig" id="place_order_trig" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">' . esc_html( $order_button_text ) . '</button>';
+        $order_button_text = __('Bestellung aufgeben', 'ergo');
+        echo '<button type="button" class="button alt" name="woocommerce_checkout_place_order_trig" id="place_order_trig" value="' . esc_attr($order_button_text) . '" data-value="' . esc_attr($order_button_text) . '">' . esc_html($order_button_text) . '</button>';
     }
 
     /**
@@ -290,9 +299,9 @@ class Checkout
      * @param $posted_data
      * @param $order
      */
-    public function order_processed( $order_id, $posted_data, $order )
+    public function order_processed($order_id, $posted_data, $order)
     {
-        if( isset($_POST['is_order_quotation']) && 1 == $_POST['is_order_quotation'] ) {
+        if (isset($_POST['is_order_quotation']) && 1 == $_POST['is_order_quotation']) {
             update_post_meta($order_id, '_ep_is_quotation', '1');
         }
     }
@@ -302,13 +311,13 @@ class Checkout
      *
      * @param $order_id
      */
-    public function change_order_status( $order_id )
+    public function change_order_status($order_id)
     {
-        if( ! $order_id ) return;
+        if (!$order_id) return;
 
         $is_quotation = get_post_meta($order_id, '_ep_is_quotation', true);
 
-        if( '1' === $is_quotation ) {
+        if ('1' === $is_quotation) {
             $order = wc_get_order($order_id);
 
             $time_order = strtotime($order->get_date_created());
@@ -327,11 +336,11 @@ class Checkout
      *
      * @param $order_id
      */
-    public function save_seller_id( $order_id )
+    public function save_seller_id($order_id)
     {
-        if( ! $order_id ) return;
+        if (!$order_id) return;
 
-        if( get_current_user_id() > 0 ) {
+        if (get_current_user_id() > 0) {
             update_post_meta($order_id, '_ep_seller_id', get_current_user_id());
         }
     }
@@ -346,15 +355,15 @@ class Checkout
      *
      * @param $order
      */
-    public function display_admin_vorgangsnummer( $order )
+    public function display_admin_vorgangsnummer($order)
     {
-        $dealid = (int)get_post_meta( $order->get_id(), '_epp_vorgangsnummer', true );
+        $dealid = (int)get_post_meta($order->get_id(), '_epp_vorgangsnummer', true);
 
-        if( $dealid > 0 ) {
-            ?>
+        if ($dealid > 0) {
+?>
             <hr>
-            <p><strong><?php echo esc_html__('Vorgangsnummer:','ergo'); ?></strong> <?php echo $dealid ?></p>
-            <?php
+            <p><strong><?php echo esc_html__('Vorgangsnummer:', 'ergo'); ?></strong> <?php echo $dealid ?></p>
+        <?php
         }
     }
 
@@ -363,28 +372,28 @@ class Checkout
      *
      * @param $order
      */
-    public function display_admin_contact_person( $order )
+    public function display_admin_contact_person($order)
     {
-        $salutation = get_user_meta( $order->get_customer_id(), '_epp_second_contact_salutation', true );
-        if( $salutation == 'Sehr geehrter Herr' ) {
-            $new_salutation = __('Sehr geehrter Herr','ergo');
-        } else if ( $salutation == 'Sehr geehrte Frau' ) {
-            $new_salutation = __('Sehr geehrte Frau','ergo');
+        $salutation = get_user_meta($order->get_customer_id(), '_epp_second_contact_salutation', true);
+        if ($salutation == 'Sehr geehrter Herr') {
+            $new_salutation = __('Sehr geehrter Herr', 'ergo');
+        } else if ($salutation == 'Sehr geehrte Frau') {
+            $new_salutation = __('Sehr geehrte Frau', 'ergo');
         }
         $new_salutation;
-        $title      = get_user_meta( $order->get_customer_id(), '_epp_second_contact_title', true );
-        $firstname  = get_user_meta( $order->get_customer_id(), '_epp_second_contact_firstname', true );
-        $lastname   = get_user_meta( $order->get_customer_id(), '_epp_second_contact_lastname', true );
-        $email      = get_user_meta( $order->get_customer_id(), '_epp_second_contact_email', true );
+        $title      = get_user_meta($order->get_customer_id(), '_epp_second_contact_title', true);
+        $firstname  = get_user_meta($order->get_customer_id(), '_epp_second_contact_firstname', true);
+        $lastname   = get_user_meta($order->get_customer_id(), '_epp_second_contact_lastname', true);
+        $email      = get_user_meta($order->get_customer_id(), '_epp_second_contact_email', true);
 
-        if(empty($lastname)) {
+        if (empty($lastname)) {
             return;
         }
         ?>
         <hr>
-        <h3><?php esc_html__('Zusätzlicher Ansprechpartner','ergo'); ?></h3>
+        <h3><?php esc_html__('Zusätzlicher Ansprechpartner', 'ergo'); ?></h3>
         <p><?php echo $new_salutation; ?> <?php echo $title ?> <?php echo $firstname ?> <?php echo $lastname ?></p>
-        <p><strong>E-Mail-Address:</strong> <a href="mailto:<?php echo esc_attr($email)?>"><?php echo $email ?></a></p>
-        <?php
+        <p><strong>E-Mail-Address:</strong> <a href="mailto:<?php echo esc_attr($email) ?>"><?php echo $email ?></a></p>
+<?php
     }
 }

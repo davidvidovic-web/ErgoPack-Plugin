@@ -38,7 +38,7 @@ class Checkout extends App {
             'shipping_country': document.getElementById('shipping_country'),
 
             'epp_customer_title': document.getElementById('epp_customer_title'),
-            'epp_customer_salutation': document.getElementById('epp_customer_salutation'),
+            'epp_customer_salutation': jQuery('#epp_customer_salutation option:selected'),
         };
     }
 

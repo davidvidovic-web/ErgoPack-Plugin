@@ -5,7 +5,6 @@
 
 <p></p>
 <p></p>
-
 <p><?php echo $new_salutation ?> <?php echo $title ?> <?php echo $billing_lastname ?>,</p>
 <?php if( !empty($customer_second_contact_lastname) ): ?>
     <p><?php echo esc_html($new_second_salutation) ?> <?php echo esc_html($customer_second_contact_title) ?> <?php echo esc_html($customer_second_contact_lastname) ?>,</p>

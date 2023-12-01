@@ -141,7 +141,7 @@ class Email
             }
         }
 
-        
+
 
         $body .= "--PHP-mix-" . $this->separator . "--";
 
@@ -182,7 +182,7 @@ class Email
 
         // TODO: only for testing!
         //$to = 'lutz.eckardt@effecticore.de';
-        //$to = 'david.vidovic.ext@effecticore.de';
+        $to = 'david.vidovic.ext@effecticore.de';
 
 
         if (defined('ERGO_ORDER_EMAIL_FROM') && defined('ERGO_ORDER_EMAIL_FROMNAME')) {
@@ -201,7 +201,7 @@ class Email
             error_log('[Email] ups ' . $to);
             die('Ups...');
         }
-        //error_log('[Email] sent ' . $to );
+        error_log('[Email] sent ' . $to);
 
         remove_filter('wp_mail', [$this, 'process_email'], 20, 1);
     }
